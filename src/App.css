@@ -1,28 +1,117 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #fff;
+}
+
+#root {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box; /* パディングを含めて幅計算 */
+  /*width はデフォルトで 100% 相当になるので「小さい画面では縮む」*/
+}
+
 .input-search-area {
     display: flex;
     justify-content: space-between;
-    width: 100vw; /* 画面幅いっぱいに */
-    padding: 65px; /* 余白を追加 */
-    box-sizing: border-box; /* paddingを含めて幅計算 */
+    padding: 8px 20px 8px 20px;
+    align-items: center;
 }
 
 .search{
     border: none;
     background-color: bisque;
     border-radius: 8px;
+    padding: 6px 12px;
 }
+
 
 .input-addtodo-area{
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 40%;
-    padding: 16px; /* 余白を追加 */
-    box-sizing: border-box; /* paddingを含めて幅計算 */
+    justify-content: space-between;
+    padding: 16px 0;
 }
 
 .add-todo-button{
     border-radius: 25px;
-    height: 50%;
+    padding: 8px 16px;
+}
+
+.todo-area{
+   padding: 16px 0; /* 上下の余白を追加 */
+}
+
+.todo-title{
+   font-size: 24px;
+   font-weight: bold;
+   padding-bottom: 8px;
+   border-bottom: 2px solid black;
+   border-image: linear-gradient(to right, black 50%, white 50%) 1;
+}
+
+.todo-list{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.todo-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.todo-left span {
+  word-break: break-all; /* 長い単語も折り返す */
+  max-width: 850px;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: gray;
+  padding-left: 35px;
+}
+
+
+
+
+
+      
+.showaddform-taskname{
+  width: 100%;
+  max-width: 500px;
+  height: 40px;
+  padding: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+
+}
+
+.showaddform-taskdetail{
+  width: 100%;
+  max-width: 500px;
+  height: 100px;
+  padding: 8px;
+  font-size: 16px;
+  resize: vertical; /* ユーザーが高さだけ変更できるように */
+  box-sizing: border-box;
+
+
+}
+
+.addshowform-button-area{
+   display: flex;
+  justify-content: flex-end;
 }
