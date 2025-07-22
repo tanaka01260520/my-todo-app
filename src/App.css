@@ -1,0 +1,28 @@
+.input-search-area {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw; /* 画面幅いっぱいに */
+    padding: 65px; /* 余白を追加 */
+    box-sizing: border-box; /* paddingを含めて幅計算 */
+}
+
+.search{
+    border: none;
+    background-color: bisque;
+    border-radius: 8px;
+}
+
+.input-addtodo-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 40%;
+    padding: 16px; /* 余白を追加 */
+    box-sizing: border-box; /* paddingを含めて幅計算 */
+}
+
+.add-todo-button{
+    border-radius: 25px;
+    height: 50%;
+}
