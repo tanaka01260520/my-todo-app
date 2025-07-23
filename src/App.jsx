@@ -8,9 +8,11 @@ const App = () => {
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDetail, setTodoDetail] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState([
-    { title:"aaaaaaaa", detail: "楽しい" },
-    { title:"todo2", detail: "楽しいqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ" },
+    { id: Date.now(),title:"aaaaaaaa", detail: "楽しい" },
+    { id: Date.now() + 1,title:"todo2", detail: "楽しいqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ" },
   ]);
+  const [searchText, setSearchText] = useState("");
+
 
   const onChangeTodoTitle = (event) => {
     setTodoTitle(event.target.value);
@@ -25,27 +27,55 @@ const App = () => {
     if(todoTitle.length === 0){
       return;
     }
-    const newTodos = [...incompleteTodos, { title: todoTitle, detail: todoDetail }];
+    const newTodos = [...incompleteTodos, { id: Date.now(),title: todoTitle, detail: todoDetail }];
     setIncompleteTodos(newTodos);
     setTodoTitle("");
     setTodoDetail("");
     setShowAddForm(false);
   };
 
-  const onClickDelete = (index) => {
-    const newTodos = [...incompleteTodos];
-    newTodos.splice(index, 1);
+  const onClickDelete = (id) => {
+    const newTodos = incompleteTodos.filter((todo) => todo.id !== id); //filterは新しい関数を返すからスプレっト構文がいらない
     setIncompleteTodos(newTodos);
+
 
   };
 
+  const onChangeSearchText = (event) => {
+    setSearchText(event.target.value);
+  };
+
+  const filteredTodos = incompleteTodos.filter((todo) => {
+    return todo.title.toLowerCase().includes(searchText.toLowerCase()) || //検索欄が空っぽの場合、includes("") はすべての文字列に対して「true」になる
+           todo.detail.toLowerCase().includes(searchText.toLowerCase());
+
+  });
+  
+
   return (
     <>
+      {showAddForm || (
+      <>
       <div className='input-search-area'>
         <p>TODO管理</p>
-        <input className='search' placeholder='Search' />
+        <input className='search'
+         placeholder='Search'
+         value={searchText} 
+         onChange={onChangeSearchText}
+        />
       </div>
       <hr />
+      </>
+      )}  
+   
+      {showAddForm && (
+      <>
+      <div className='input-search-area'>
+        <p>TODO管理</p>
+      </div>
+      <hr />
+      </>
+      )}    
 
       {showAddForm ? (
         <div className='container'>
@@ -90,9 +120,9 @@ const App = () => {
           <div className='todo-area'>
             <p className='todo-title'>すべてのタスク</p>
 
-            {incompleteTodos.map((todo, index) => {
+            {filteredTodos.map((todo,index) => {
               return (
-                <div className='todo-list' key={index}>
+                <div className='todo-list' key={todo.id}>
                   <div className='todo-left'>
                     <input type='checkbox' />
                     <div className='todo-details'>
@@ -100,7 +130,7 @@ const App = () => {
                       <div>{todo.detail}</div>
                     </div>  
                   </div>
-                  <button className='delete-button' onClick={onClickDelete}>🗑</button>
+                  <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
                 </div>
               );
             })}
