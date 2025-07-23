@@ -75,6 +75,13 @@ body {
   max-width: 850px;
 }
 
+.todo-details {
+  display: flex;
+  flex-direction: column;
+  word-break: break-all; /* 長い単語も折り返す */
+  max-width: 850px;
+}
+
 .delete-button {
   background: none;
   border: none;
