@@ -54,28 +54,19 @@ const App = () => {
 
   return (
     <>
+    <div className='input-search-area'>
+      <p>TODO管理</p>
       {showAddForm || (
-      <>
-      <div className='input-search-area'>
-        <p>TODO管理</p>
-        <input className='search'
-         placeholder='Search'
-         value={searchText} 
-         onChange={onChangeSearchText}
-        />
-      </div>
-      <hr />
-      </>
-      )}  
-   
-      {showAddForm && (
-      <>
-      <div className='input-search-area'>
-        <p>TODO管理</p>
-      </div>
-      <hr />
-      </>
-      )}    
+      <input
+      className='search'
+      placeholder='Search'
+      value={searchText}
+      onChange={onChangeSearchText}
+      />
+    )}
+    </div>
+    <hr />
+
 
       {showAddForm ? (
         <div className='container'>
