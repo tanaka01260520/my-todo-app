@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -7,6 +7,7 @@ import { AddTodo } from './components/AddTodo';
 import { IncompleteTodo } from './components/IncompleteTodo';
 
 const App = () => {
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDetail, setTodoDetail] = useState("");
@@ -15,6 +16,18 @@ const App = () => {
   const [incompleteTodos, setIncompleteTodos] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+  useEffect(() => {
+    fetch('https://7k0bp6grqb.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.todos) {
+          setIncompleteTodos(data.todos);
+        }
+      })
+      .catch((error) => {
+        console.error("API取得エラー:", error);
+      });
+  }, []);
 
   const onChangeTodoTitle = (event) => {
     setTodoTitle(event.target.value);
