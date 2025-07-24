@@ -12,10 +12,7 @@ const App = () => {
   const [todoDetail, setTodoDetail] = useState("");
   // const [lastTodoTitle, setLastTodoTitle] = useState("");
   // const [lastTodoDetail, setLastTodoDetail] = useState("");
-  const [incompleteTodos, setIncompleteTodos] = useState([
-    { id: Date.now(),title:"aaaaaaaa", detail: "楽しい" },
-    { id: Date.now() + 1,title:"todo2", detail: "楽しいqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ" },
-  ]);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
   const [searchText, setSearchText] = useState("");
 
 
