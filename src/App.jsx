@@ -2,11 +2,16 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { SearchTodo } from './components/SearchTodo';
+import { AddTodo } from './components/AddTodo';
+import { IncompleteTodo } from './components/IncompleteTodo';
 
 const App = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDetail, setTodoDetail] = useState("");
+  // const [lastTodoTitle, setLastTodoTitle] = useState("");
+  // const [lastTodoDetail, setLastTodoDetail] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState([
     { id: Date.now(),title:"aaaaaaaa", detail: "楽しい" },
     { id: Date.now() + 1,title:"todo2", detail: "楽しいqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ" },
@@ -29,6 +34,8 @@ const App = () => {
     }
     const newTodos = [...incompleteTodos, { id: Date.now(),title: todoTitle, detail: todoDetail }];
     setIncompleteTodos(newTodos);
+    // setLastTodoTitle(todoTitle);
+    // setLastTodoDetail(todoDetail);
     setTodoTitle("");
     setTodoDetail("");
     setShowAddForm(false);
@@ -54,79 +61,29 @@ const App = () => {
 
   return (
     <>
-    <div className='input-search-area'>
-      <p>TODO管理</p>
-      {showAddForm || (
-      <input
-      className='search'
-      placeholder='Search'
-      value={searchText}
-      onChange={onChangeSearchText}
-      />
-    )}
-    </div>
-    <hr />
-
+    <SearchTodo 
+      showAddForm={showAddForm}
+      searchText={searchText}
+      onChangeSearchText={onChangeSearchText}
+    />
+    
 
       {showAddForm ? (
-        <div className='container'>
-          <div className='showaddform-title'>
-            <h1>タスクを追加</h1>
-          </div>
-          <div className='showaddform-name'>
-            <p className='todo-title'>タスク名</p>
-            <input
-              type="text"
-              className="showaddform-taskname"
-              placeholder='タスク名を入力'
-              value={todoTitle}
-              onChange={onChangeTodoTitle}
-            />
-          </div>
-          <div>
-            <p>タスクの詳細</p>
-            <textarea
-              placeholder="タスクの詳細を入力"
-              className='showaddform-taskdetail'
-              value={todoDetail}  
-              onChange={onChangeTododetail}
-            />
-          </div>
-          <div className="addshowform-button-area">
-            <button onClick={onClickAdd}>タスクを追加</button>
-          </div>
-        </div>
+        <AddTodo
+          todoTitle={todoTitle}
+          todoDetail={todoDetail}
+          onChangeTodoTitle={onChangeTodoTitle}
+          onChangeTododetail={onChangeTododetail}
+          onClickAdd={onClickAdd}     
+        />
       ) : (
-        <div className="container">
-          <div className='input-addtodo-area'>
-            <h1>私のタスク</h1>
-            <button
-              className='add-todo-button'
-              onClick={() => setShowAddForm(true)} //引数がある場合は関数にしないと、レンダリング時にsetShowAddForm(true)をすぐ実行して、その戻り値（undefined）をonClickに渡す
-            >
-              新しいタスク
-            </button>
-          </div>
-
-          <div className='todo-area'>
-            <p className='todo-title'>すべてのタスク</p>
-
-            {filteredTodos.map((todo,index) => {
-              return (
-                <div className='todo-list' key={todo.id}>
-                  <div className='todo-left'>
-                    <input type='checkbox' />
-                    <div className='todo-details'>
-                      <span>{todo.title}</span>
-                      <div>{todo.detail}</div>
-                    </div>  
-                  </div>
-                  <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <IncompleteTodo
+          setTodoTitle={setTodoTitle}
+          setTodoDetail={setTodoDetail}
+          setShowAddForm={setShowAddForm}
+          filteredTodos={filteredTodos}
+          onClickDelete={onClickDelete}
+        />
       )
       
       }
