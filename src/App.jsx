@@ -5,21 +5,24 @@ import './App.css'
 import { SearchTodo } from './components/SearchTodo';
 import { AddTodo } from './components/AddTodo';
 import { IncompleteTodo } from './components/IncompleteTodo';
+import { CompletedTodo } from './components/CompleteTodo';
 
 const App = () => {
 
-  const [showAddForm, setShowAddForm] = useState(false);
+  const [viewState, setViewState] = useState("incomplete");
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDetail, setTodoDetail] = useState("");
   // const [lastTodoTitle, setLastTodoTitle] = useState("");
   // const [lastTodoDetail, setLastTodoDetail] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const [completedTodos, setCompletedTodos] = useState([]);
   const [searchText, setSearchText] = useState("");
 
+
   useEffect(() => {
-    fetch('https://7k0bp6grqb.execute-api.ap-northeast-1.amazonaws.com/Prod/todos')
-      .then((res) => res.json())
-      .then((data) => {
+    fetch('https://7k0bp6grqb.execute-api.ap-northeast-1.amazonaws.com/Prod/todos') //httpリクエストを送る
+      .then((res) => res.json()) // レスポンスをJSON形式に変換
+      .then((data) => { //json形式のデータ( { todos: [...] } ) を受け取る
         if (data.todos) {
           setIncompleteTodos(data.todos);
         }
@@ -48,11 +51,13 @@ const App = () => {
     // setLastTodoDetail(todoDetail);
     setTodoTitle("");
     setTodoDetail("");
-    setShowAddForm(false);
+    setViewState("incomplete");
   };
 
   const onClickDelete = (id) => {
     const newTodos = incompleteTodos.filter((todo) => todo.id !== id); //filterは新しい関数を返すからスプレっト構文がいらない
+    const newCompletedTodos = completedTodos.filter((todo) => todo.id !== id);
+    setCompletedTodos(newCompletedTodos);
     setIncompleteTodos(newTodos);
 
 
@@ -67,18 +72,30 @@ const App = () => {
            todo.detail.toLowerCase().includes(searchText.toLowerCase());
 
   });
+
+  const onClickComplete = (id) => {
+    const remaining = incompleteTodos.filter((todo) => todo.id !== id);
+    const completed = incompleteTodos.find((todo) => todo.id === id);
+    setIncompleteTodos(remaining);
+    setCompletedTodos([...completedTodos,completed]);
+ 
+
+
+    
+
+  };
   
 
   return (
     <>
     <SearchTodo 
-      showAddForm={showAddForm}
       searchText={searchText}
       onChangeSearchText={onChangeSearchText}
+      onClickHeader={() => setViewState("incomplete")}
+      viewState={viewState}
     />
     
-
-      {showAddForm ? (
+      {viewState === "add" ? (
         <AddTodo
           todoTitle={todoTitle}
           todoDetail={todoDetail}
@@ -86,16 +103,21 @@ const App = () => {
           onChangeTododetail={onChangeTododetail}
           onClickAdd={onClickAdd}     
         />
+      ) : viewState === "complete" ? (
+        <CompletedTodo 
+          completedTodos={completedTodos}
+          onClickDelete={onClickDelete}
+          />
       ) : (
         <IncompleteTodo
           setTodoTitle={setTodoTitle}
           setTodoDetail={setTodoDetail}
-          setShowAddForm={setShowAddForm}
+          setViewState={setViewState}
           filteredTodos={filteredTodos}
           onClickDelete={onClickDelete}
+          onClickComplete={onClickComplete}
         />
       )
-      
       }
     </>
   );

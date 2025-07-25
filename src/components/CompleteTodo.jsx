@@ -1,0 +1,31 @@
+export const CompletedTodo = (props) => {
+    const { completedTodos, onClickDelete } = props;
+
+    return(
+      <>
+      <div className="container">
+        <h1>完了済みタスク</h1>
+      
+        {completedTodos.map((todo,index) => {
+            return (
+            <div className='todo-list' key={todo.id}>
+                <div className='todo-left'>
+                <input type='checkbox' />
+                <div className='todo-details'>
+                    <span>{todo.title}</span>
+                    <div>{todo.detail}</div>
+                </div>  
+                </div>
+                <div>
+                <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
+                </div>  
+            </div>
+            );
+        })}
+      
+      </div>
+      </>
+
+    )
+
+};

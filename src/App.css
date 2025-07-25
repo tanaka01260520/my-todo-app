@@ -25,6 +25,15 @@ body {
     align-items: center;
 }
 
+.input-search-area p {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.input-search-area p:hover {
+  color: #007acc;
+}
+
 .search{
     border: none;
     background-color: bisque;
@@ -49,7 +58,9 @@ body {
    padding: 0px 0px 16px 0px; /* 上下の余白を追加 */
 }
 
-.todo-title{
+.todo-header {
+   display: flex;
+   gap: 70px;
    font-size: 24px;
    font-weight: bold;
    padding-bottom: 8px;
@@ -71,14 +82,14 @@ body {
 
 .todo-left span {
   word-break: break-all; /* 長い単語も折り返す */
-  max-width: 850px;
+  max-width: 730px;
 }
 
 .todo-details {
   display: flex;
   flex-direction: column;
   word-break: break-all; /* 長い単語も折り返す */
-  max-width: 850px;
+  max-width: 730px;
 }
 
 .todo-details span{

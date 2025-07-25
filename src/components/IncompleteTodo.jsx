@@ -1,5 +1,5 @@
 export const IncompleteTodo = (props) => {
-  const {setTodoTitle,setTodoDetail,setShowAddForm,filteredTodos,onClickDelete} = props;
+  const {setTodoTitle,setTodoDetail,setViewState,filteredTodos,onClickDelete,onClickComplete} = props;
   return (
      <div className="container">
           <div className='input-addtodo-area'>
@@ -9,14 +9,17 @@ export const IncompleteTodo = (props) => {
               onClick={() => {
                 // setTodoTitle(lastTodoTitle);
                 // setTodoDetail(lastTodoDetail);
-                setShowAddForm(true)}} //引数がある場合は関数にしないと、レンダリング時にsetShowAddForm(true)をすぐ実行して、その戻り値（undefined）をonClickに渡す
+                setViewState("add")}} //引数がある場合は関数にしないと、レンダリング時にsetShowAddForm(true)をすぐ実行して、その戻り値（undefined）をonClickに渡す
             >
               新しいタスク
             </button>
           </div>
 
           <div className='todo-area'>
-            <p className='todo-title'>すべてのタスク</p>
+            <div className="todo-header">
+              <p className='todo-title' onClick={() => setViewState("incomplete")}>すべてのタスク</p>
+              <p onClick={() => setViewState("complete")}>完了済みタスク</p>
+            </div>
 
             {filteredTodos.map((todo,index) => {
               return (
@@ -28,7 +31,10 @@ export const IncompleteTodo = (props) => {
                       <div>{todo.detail}</div>
                     </div>  
                   </div>
-                  <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
+                  <div>
+                    <button onClick={() => onClickComplete(todo.id)}>完了</button>
+                    <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
+                  </div>  
                 </div>
               );
             })}

@@ -1,10 +1,10 @@
 export const SearchTodo = (props) => {
-    const { showAddForm, searchText, onChangeSearchText } = props;
+    const { viewState, searchText, onChangeSearchText,onClickHeader} = props;
   return (
     <>
      <div className='input-search-area'>
-      <p>TODO管理</p>
-      {showAddForm || (
+      <p onClick={onClickHeader}>TODO管理</p>
+      {viewState !== "add" && (
       <input
       className='search'
       placeholder='Search'
