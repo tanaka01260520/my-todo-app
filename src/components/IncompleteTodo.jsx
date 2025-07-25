@@ -1,5 +1,28 @@
+import { useRef, useState,useEffect } from 'react';
+
 export const IncompleteTodo = (props) => {
   const {setTodoTitle,setTodoDetail,setViewState,filteredTodos,onClickDelete,onClickComplete} = props;
+
+  const underlineRef = useRef(null);
+  
+  useEffect(() => {
+    const underline = underlineRef.current;
+    const defaultTab = document.querySelectorAll(".tab-item")[0];
+    if (underline && defaultTab) {
+      underline.style.width = `${defaultTab.offsetWidth}px`;
+      underline.style.transform = `translateX(${defaultTab.offsetLeft}px)`;
+    }
+  }, []);
+
+  const handleMouseEnter = (e) => {
+    const underline = underlineRef.current;
+    const target = e.currentTarget;
+    if (underline && target) {
+      underline.style.width = `${target.offsetWidth}px`;
+      underline.style.transform = `translateX(${target.offsetLeft}px)`;
+    }
+  };
+
   return (
      <div className="container">
           <div className='input-addtodo-area'>
@@ -17,8 +40,11 @@ export const IncompleteTodo = (props) => {
 
           <div className='todo-area'>
             <div className="todo-header">
-              <p className='todo-title' onClick={() => setViewState("incomplete")}>すべてのタスク</p>
-              <p onClick={() => setViewState("complete")}>完了済みタスク</p>
+              {/* <p className='todo-title' onClick={() => setViewState("incomplete")}>すべてのタスク</p> */}
+              {/* <p className="todo-title-detail" onClick={() => setViewState("complete")}>完了済みタスク</p> */}
+              <div className="tab-item" onClick={() => setViewState("incomplete")}  onMouseEnter={handleMouseEnter}>すべてのタスク</div>
+              <div className="tab-item" onClick={() => setViewState("complete")} onMouseEnter={handleMouseEnter}>完了済みタスク</div>
+             <div className="tab-underline" ref={underlineRef}></div>
             </div>
 
             {filteredTodos.map((todo,index) => {

@@ -4,8 +4,11 @@ export const CompletedTodo = (props) => {
     return(
       <>
       <div className="container">
-        <h1>完了済みタスク</h1>
-      
+        <div className='input-addtodo-area'>
+          <h1>完了済みタスク</h1>
+        </div>
+         <hr />
+
         {completedTodos.map((todo,index) => {
             return (
             <div className='todo-list' key={todo.id}>

@@ -59,13 +59,55 @@ body {
 }
 
 .todo-header {
+   position: relative;
    display: flex;
    gap: 70px;
    font-size: 24px;
    font-weight: bold;
    padding-bottom: 8px;
-   border-bottom: 2px solid black;
-   border-image: linear-gradient(to right, black 18%, lightgray 10%) 1;
+   border-bottom: 2px solid rgb(231, 226, 226);
+   align-items: flex-end;
+   
+}
+
+.tab-item {
+  position: relative;
+  cursor: pointer;
+  padding-bottom: 8px;
+}
+
+.tab-item:hover {
+  color: #007acc;
+}
+
+.tab-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0; /* 最初は1つ目のタブに合わせた幅 */
+  height: 2px;
+  background-color: black;
+  transition: all 0.3s ease;
+  transform: translateX(0);
+  pointer-events: none;
+}
+
+.todo-title {
+   cursor: pointer;
+   font-weight: bold;
+ }
+
+.todo-title:hover {
+   color: #007acc; /* ホバー時の色を変更 */
+}
+
+.todo-title-detail{
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.todo-title-detail:hover {
+  color: #007acc; /* ホバー時の色を変更 */
 }
 
 .todo-list{
