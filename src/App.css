@@ -12,10 +12,11 @@ body {
 
 .container {
   max-width: 1024px;
-  margin: 0 auto;
+  margin: 0 auto; /* 中央寄せ(左右) */
   padding: 0 16px;
   box-sizing: border-box; /* パディングを含めて幅計算 */
   /*width はデフォルトで 100% 相当になるので「小さい画面では縮む」*/
+  overflow: hidden;  /* ブロック要素の上下マージンは親の外に「はみ出す」ことがあり、これを親の範囲をちゃんと超えずに収まるようにマージン相殺(上下) */
 }
 
 .input-search-area {
@@ -159,9 +160,22 @@ body {
 
 
 
+.todo-title{
+   font-size: 24px;
+   font-weight: bold;
+   
+}
 
+.todo-title-detail{
+   font-size: 24px;
+   font-weight: bold;
+}
+    
+.showaddform-title h1{
+   padding-bottom: 20px;
+   padding-top: 10px;
+}
 
-      
 .showaddform-taskname{
   width: 100%;
   max-width: 500px;
@@ -182,6 +196,18 @@ body {
   box-sizing: border-box;
 
 
+}
+
+.showaddform-deadline input[type="date"] {
+  width: 100%;
+  max-width: 500px;
+  height: 40px;
+  padding: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 20px;
 }
 
 .addshowform-button-area{
