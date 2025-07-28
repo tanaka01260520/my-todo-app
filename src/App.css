@@ -127,6 +127,7 @@ body {
   max-width: 730px;
 }
 
+
 .todo-details {
   display: flex;
   flex-direction: column;
@@ -134,10 +135,16 @@ body {
   max-width: 730px;
 }
 
+.todo-details p {
+   margin: 0; /* デフォルトのマージンをリセット */
+   color: rgb(218, 116, 32);
+}
+
 .todo-details span{
    font-size: 24px;
    font-weight: bold;
 }
+
 .todo-details div{
     color: gray;
 }

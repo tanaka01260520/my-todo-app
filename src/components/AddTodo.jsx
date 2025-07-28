@@ -1,5 +1,5 @@
 export const AddTodo = (props) => {
-  const {todoTitle,onChangeTodoTitle,todoDetail,onChangeTododetail,onClickAdd} = props;
+  const {todoTitle,onChangeTodoTitle,todoDetail,onChangeTododetail,onClickAdd,todoDeadline,onChangeTodoDeadline} = props;
   return (
 
      <div className='container'>
@@ -25,9 +25,16 @@ export const AddTodo = (props) => {
               onChange={onChangeTododetail}
             />
           </div>
+          <div>
+            <input 
+              type="date" 
+              value={todoDeadline}
+              onChange={onChangeTodoDeadline}
+            />
+          </div>
           <div className="addshowform-button-area">
             <button onClick={onClickAdd}>タスクを追加</button>
-          </div>
+          </div> 
         </div>
 
 

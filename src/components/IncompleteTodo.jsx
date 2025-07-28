@@ -51,7 +51,7 @@ export const IncompleteTodo = (props) => {
             {filteredTodos.map((todo,index) => {
               return (
                 <div className='todo-list' key={todo.id}>
-                  <div className='todo-left'>
+                  <div className='todo-left'>    
                     <input type='checkbox'
                      onChange={(e) => {
                        const checked = e.target.checked;
@@ -83,6 +83,11 @@ export const IncompleteTodo = (props) => {
                      }}       
                     />
                     <div className='todo-details'>
+                      {todo.todoDeadline && (
+                        <div className="todo-deadline">
+                          <p> 期限【{todo.todoDeadline}】 </p>
+                        </div>
+                      )}
                       <span>{todo.title}</span>
                       <div>{todo.detail}</div>
                     </div>  
