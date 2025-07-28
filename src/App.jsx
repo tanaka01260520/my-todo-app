@@ -17,6 +17,7 @@ const App = () => {
   const [incompleteTodos, setIncompleteTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [todoDeadline, setTodoDeadline] = useState("");
 
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const App = () => {
     if(todoTitle.length === 0){
       return;
     }
-    const newTodos = [...incompleteTodos, { id: Date.now(),title: todoTitle, detail: todoDetail }];
+    const newTodos = [...incompleteTodos, { id: Date.now(),title: todoTitle, detail: todoDetail,todoDeadline: todoDeadline}];
     setIncompleteTodos(newTodos);
     // setLastTodoTitle(todoTitle);
     // setLastTodoDetail(todoDetail);
@@ -67,10 +68,19 @@ const App = () => {
     setSearchText(event.target.value);
   };
 
-  const filteredTodos = incompleteTodos.filter((todo) => {
-    return todo.title.toLowerCase().includes(searchText.toLowerCase()) || //検索欄が空っぽの場合、includes("") はすべての文字列に対して「true」になる
+  const filteredTodos = incompleteTodos
+    .filter((todo) => {
+      return todo.title.toLowerCase().includes(searchText.toLowerCase()) || //検索欄が空っぽの場合、includes("") はすべての文字列に対して「true」になる
            todo.detail.toLowerCase().includes(searchText.toLowerCase());
+         
+  })
+    .sort((a, b) => {
+    // 期限がないタスクは一番下にする 負の値：a が b より先（a → b）、正の値：b が a より先、（b → a）0：順番は変えない。
 
+      if (!a.todoDeadline) return 1;
+      if (!b.todoDeadline) return -1;
+
+      return new Date(a.todoDeadline) - new Date(b.todoDeadline);
   });
 
   const onClickComplete = (id) => {
@@ -78,12 +88,12 @@ const App = () => {
     const completed = incompleteTodos.find((todo) => todo.id === id);
     setIncompleteTodos(remaining);
     setCompletedTodos([...completedTodos,completed]);
- 
-
-
-    
-
   };
+
+  const onChangeTodoDeadline = (event) => {
+    setTodoDeadline(event.target.value);
+  }
+
   
 
   return (
@@ -101,7 +111,9 @@ const App = () => {
           todoDetail={todoDetail}
           onChangeTodoTitle={onChangeTodoTitle}
           onChangeTododetail={onChangeTododetail}
-          onClickAdd={onClickAdd}     
+          onClickAdd={onClickAdd}    
+          todoDeadline={todoDeadline}
+          onChangeTodoDeadline={onChangeTodoDeadline} 
         />
       ) : viewState === "complete" ? (
         <CompletedTodo 
