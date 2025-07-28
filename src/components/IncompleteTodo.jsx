@@ -4,19 +4,20 @@ export const IncompleteTodo = (props) => {
   const {setTodoTitle,setTodoDetail,setViewState,filteredTodos,onClickDelete,onClickComplete} = props;
 
   const underlineRef = useRef(null);
+  const [pendingTimeouts, setPendingTimeouts] = useState({});
   
   useEffect(() => {
-    const underline = underlineRef.current;
-    const defaultTab = document.querySelectorAll(".tab-item")[0];
+    const underline = underlineRef.current; //currentでdom要素にアクセス
+    const defaultTab = document.querySelectorAll(".tab-item")[0]; //配列のような特徴を持ったNodeListとして要素を取得
     if (underline && defaultTab) {
-      underline.style.width = `${defaultTab.offsetWidth}px`;
-      underline.style.transform = `translateX(${defaultTab.offsetLeft}px)`;
+      underline.style.width = `${defaultTab.offsetWidth}px`; //下線の幅
+      underline.style.transform = `translateX(${defaultTab.offsetLeft}px)`;  //下線の位置、${defaultTab.offsetLeft} はそのタブが左からどれくらい離れているか（ピクセル）
     }
   }, []);
 
   const handleMouseEnter = (e) => {
     const underline = underlineRef.current;
-    const target = e.currentTarget;
+    const target = e.currentTarget; //イベントが発生した要素そのものを取得（onMouseEnter）、currentでそのdivタグの指定になる
     if (underline && target) {
       underline.style.width = `${target.offsetWidth}px`;
       underline.style.transform = `translateX(${target.offsetLeft}px)`;
@@ -44,14 +45,43 @@ export const IncompleteTodo = (props) => {
               {/* <p className="todo-title-detail" onClick={() => setViewState("complete")}>完了済みタスク</p> */}
               <div className="tab-item" onClick={() => setViewState("incomplete")}  onMouseEnter={handleMouseEnter}>すべてのタスク</div>
               <div className="tab-item" onClick={() => setViewState("complete")} onMouseEnter={handleMouseEnter}>完了済みタスク</div>
-             <div className="tab-underline" ref={underlineRef}></div>
+             <div className="tab-underline" ref={underlineRef}></div>   {/* HTML要素（DOM）を直接操作するref */}
             </div>
 
             {filteredTodos.map((todo,index) => {
               return (
                 <div className='todo-list' key={todo.id}>
                   <div className='todo-left'>
-                    <input type='checkbox' />
+                    <input type='checkbox'
+                     onChange={(e) => {
+                       const checked = e.target.checked;
+
+                        if (checked) {
+                          const timeoutId = setTimeout(() => { //setTimeout関数は自動で timeoutId を生成
+                             onClickComplete(todo.id);
+                             setPendingTimeouts((prev) => {  //prevの中身は[todo.id]: timeoutIdこうなってる
+                               const newState = {...prev};
+                               delete newState[todo.id];
+                               return newState;
+
+                             });
+ 
+                          },3000);
+                          setPendingTimeouts((prev) => ({
+                            ...prev, [todo.id]: timeoutId
+
+                          }));
+                        } else {
+                          if (pendingTimeouts[todo.id])
+                          clearTimeout(pendingTimeouts[todo.id]);
+                          setPendingTimeouts((prev) => {
+                            const newState = { ...prev };
+                            delete newState[todo.id];
+                            return newState;  
+                          });
+                        } 
+                     }}       
+                    />
                     <div className='todo-details'>
                       <span>{todo.title}</span>
                       <div>{todo.detail}</div>
