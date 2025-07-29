@@ -6,6 +6,7 @@ import { SearchTodo } from './components/SearchTodo';
 import { AddTodo } from './components/AddTodo';
 import { IncompleteTodo } from './components/IncompleteTodo';
 import { CompletedTodo } from './components/CompleteTodo';
+import { EditTodo } from './components/EditTodo';
 
 const App = () => {
 
@@ -18,6 +19,8 @@ const App = () => {
   const [completedTodos, setCompletedTodos] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [todoDeadline, setTodoDeadline] = useState("");
+  const [editTargetId, setEditTargetId] = useState(null);
+
 
 
   useEffect(() => {
@@ -94,7 +97,35 @@ const App = () => {
     setTodoDeadline(event.target.value);
   }
 
-  
+  const onClickEdit = (id) => {
+    const todoToEdit = incompleteTodos.find((todo) => todo.id === id);
+    if (todoToEdit) {
+      setTodoTitle(todoToEdit.title);
+      setTodoDetail(todoToEdit.detail);
+      setTodoDeadline(todoToEdit.todoDeadline);
+      setEditTargetId(id);
+      setViewState("edit");
+    }
+  }
+
+  const onClickEditComp = (id) => {
+    const updatedTodos = incompleteTodos.map((todo) =>
+      todo.id === id
+        ? {
+          ...todo,
+          title: todoTitle,
+          detail: todoDetail,
+          todoDeadline: todoDeadline
+          } //JavaScriptオブジェクトは、あとに書いたプロパティで前の値を上書きする
+        : todo
+    );
+      setIncompleteTodos(updatedTodos);
+      setTodoTitle("");
+      setTodoDetail("");
+      setTodoDeadline("");
+      setEditTargetId(null);
+      setViewState("incomplete");
+  }
 
   return (
     <>
@@ -120,6 +151,17 @@ const App = () => {
           completedTodos={completedTodos}
           onClickDelete={onClickDelete}
           />
+      ) : viewState === "edit" ? (
+        <EditTodo 
+          todoTitle={todoTitle}
+          todoDetail={todoDetail}
+          onChangeTodoTitle={onChangeTodoTitle}
+          onChangeTododetail={onChangeTododetail}
+          todoDeadline={todoDeadline}
+          onChangeTodoDeadline={onChangeTodoDeadline} 
+          onClickEditComp={onClickEditComp}
+          editTargetId={editTargetId} 
+        />  
       ) : (
         <IncompleteTodo
           setTodoTitle={setTodoTitle}
@@ -128,6 +170,7 @@ const App = () => {
           filteredTodos={filteredTodos}
           onClickDelete={onClickDelete}
           onClickComplete={onClickComplete}
+          onClickEdit={onClickEdit}
         />
       )
       }

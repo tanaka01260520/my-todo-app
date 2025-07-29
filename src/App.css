@@ -125,7 +125,7 @@ body {
 
 .todo-left span {
   word-break: break-all; /* 長い単語も折り返す */
-  max-width: 730px;
+  max-width: 635px;
 }
 
 
@@ -133,7 +133,7 @@ body {
   display: flex;
   flex-direction: column;
   word-break: break-all; /* 長い単語も折り返す */
-  max-width: 730px;
+  max-width: 635px;
 }
 
 .todo-details p {
@@ -163,12 +163,14 @@ body {
 .todo-title{
    font-size: 24px;
    font-weight: bold;
+   pointer-events: none; 
    
 }
 
 .todo-title-detail{
    font-size: 24px;
    font-weight: bold;
+   pointer-events: none; 
 }
     
 .showaddform-title h1{
@@ -207,10 +209,24 @@ body {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-top: 20px;
 }
+
+.showaddform-deadline p {
+   font-size: 24px;
+   font-weight: bold;
+   pointer-events: none; 
+}
+
 
 .addshowform-button-area{
    display: flex;
-  justify-content: flex-end;
+   justify-content: flex-end;
+}
+
+.delete-button:hover {
+   color: #007acc; /* ホバー時の色を赤に変更 */
+}
+
+.todo-editbutton{
+    margin-right: 15px;
 }

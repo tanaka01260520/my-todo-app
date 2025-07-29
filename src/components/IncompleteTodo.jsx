@@ -1,7 +1,7 @@
 import { useRef, useState,useEffect } from 'react';
 
 export const IncompleteTodo = (props) => {
-  const {setTodoTitle,setTodoDetail,setViewState,filteredTodos,onClickDelete,onClickComplete} = props;
+  const {setTodoTitle,setTodoDetail,setViewState,filteredTodos,onClickDelete,onClickComplete,onClickEdit} = props;
 
   const underlineRef = useRef(null);
   const [pendingTimeouts, setPendingTimeouts] = useState({});
@@ -93,6 +93,7 @@ export const IncompleteTodo = (props) => {
                     </div>  
                   </div>
                   <div>
+                    <button onClick={() => onClickEdit(todo.id)}className='todo-editbutton'>編集</button>
                     <button onClick={() => onClickComplete(todo.id)}>完了</button>
                     <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
                   </div>  

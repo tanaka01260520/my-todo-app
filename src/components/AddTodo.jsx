@@ -26,6 +26,7 @@ export const AddTodo = (props) => {
           />
         </div>
         <div className='showaddform-deadline'>
+          <p>タスクの期限</p>
           <input 
             type="date" 
             value={todoDeadline}
