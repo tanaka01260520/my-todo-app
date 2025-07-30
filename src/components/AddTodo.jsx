@@ -34,7 +34,7 @@ export const AddTodo = (props) => {
           />
         </div>
         <div className="addshowform-button-area">
-          <button onClick={onClickAdd}>タスクを追加</button>
+          <button onClick={onClickAdd} className="addshowform-button">タスクを追加</button>
         </div> 
     </div>
 

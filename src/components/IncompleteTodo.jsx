@@ -31,8 +31,6 @@ export const IncompleteTodo = (props) => {
             <button
               className='add-todo-button'
               onClick={() => {
-                // setTodoTitle(lastTodoTitle);
-                // setTodoDetail(lastTodoDetail);
                 setViewState("add")}} //引数がある場合は関数にしないと、レンダリング時にsetShowAddForm(true)をすぐ実行して、その戻り値（undefined）をonClickに渡す
             >
               新しいタスク
@@ -41,8 +39,6 @@ export const IncompleteTodo = (props) => {
 
           <div className='todo-area'>
             <div className="todo-header">
-              {/* <p className='todo-title' onClick={() => setViewState("incomplete")}>すべてのタスク</p> */}
-              {/* <p className="todo-title-detail" onClick={() => setViewState("complete")}>完了済みタスク</p> */}
               <div className="tab-item" onClick={() => setViewState("incomplete")}  onMouseEnter={handleMouseEnter}>すべてのタスク</div>
               <div className="tab-item" onClick={() => setViewState("complete")} onMouseEnter={handleMouseEnter}>完了済みタスク</div>
              <div className="tab-underline" ref={underlineRef}></div>   {/* HTML要素（DOM）を直接操作するref */}
@@ -53,6 +49,7 @@ export const IncompleteTodo = (props) => {
                 <div className='todo-list' key={todo.id}>
                   <div className='todo-left'>    
                     <input type='checkbox'
+                     className='checkbox'
                      onChange={(e) => {
                        const checked = e.target.checked;
 
@@ -94,8 +91,8 @@ export const IncompleteTodo = (props) => {
                   </div>
                   <div>
                     <button onClick={() => onClickEdit(todo.id)}className='todo-editbutton'>編集</button>
-                    <button onClick={() => onClickComplete(todo.id)}>完了</button>
-                    <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
+                    <button onClick={() => onClickComplete(todo.id)}className='todo-compbutton'>完了</button>
+                    <button className='delete-button' onClick={() => onClickDelete(todo.id)}><i class="fa-solid fa-trash-can"></i></button>
                   </div>  
                 </div>
               );
