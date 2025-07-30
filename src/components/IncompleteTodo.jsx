@@ -92,7 +92,7 @@ export const IncompleteTodo = (props) => {
                   <div>
                     <button onClick={() => onClickEdit(todo.id)}className='todo-editbutton'>編集</button>
                     <button onClick={() => onClickComplete(todo.id)}className='todo-compbutton'>完了</button>
-                    <button className='delete-button' onClick={() => onClickDelete(todo.id)}><i class="fa-solid fa-trash-can"></i></button>
+                    <button className='delete-button' onClick={() => onClickDelete(todo.id)}><i className="fa-solid fa-trash-can"></i></button>
                   </div>  
                 </div>
               );
