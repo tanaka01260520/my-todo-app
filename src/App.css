@@ -37,9 +37,32 @@ body {
 
 .search{
     border: none;
-    background-color: bisque;
-    border-radius: 8px;
-    padding: 6px 12px;
+    background-color: rgb(241, 240, 238);
+    border-radius: 16px;
+    padding: 6px 12px 0px 36px;
+    height: 32px;
+}
+
+.search-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 18px;
+  pointer-events: none; /* アイコンはクリックできない */
+}
+
+.search-area-hr{
+  border: none;
+  border-top: 2px solid #e0e0e0; /* 線の色と太さを指定 */
+  height: 0;
+  margin: 0;
 }
 
 
@@ -69,6 +92,10 @@ body {
    border-bottom: 2px solid rgb(231, 226, 226);
    align-items: flex-end;
    
+}
+
+.add-todo-button{
+  background-color: #f1f1f1;;
 }
 
 .tab-item {
@@ -154,8 +181,9 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 35px;
+  font-size: 20px;
   padding-left: 35px;
+   color: #666;
 }
 
 
@@ -185,6 +213,8 @@ body {
   padding: 8px;
   font-size: 16px;
   box-sizing: border-box;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
 
 }
 
@@ -196,6 +226,8 @@ body {
   font-size: 16px;
   resize: vertical; /* ユーザーが高さだけ変更できるように */
   box-sizing: border-box;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
 
 
 }
@@ -207,8 +239,8 @@ body {
   padding: 8px;
   font-size: 16px;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
 }
 
 .showaddform-deadline p {
@@ -221,6 +253,19 @@ body {
 .addshowform-button-area{
    display: flex;
    justify-content: flex-end;
+ 
+}
+
+.addshowform-button{
+   background-color: #007acc;
+   color: #fff;
+   border: none;
+   border-radius: 25px;
+   padding: 8px 24px;
+   font-size: 16px;
+   font-weight: bold;
+   cursor: pointer;
+   transition: background 0.2s;
 }
 
 .delete-button:hover {
@@ -229,4 +274,46 @@ body {
 
 .todo-editbutton{
     margin-right: 15px;
+    background-color: #f1f1f1;
+    border-radius: 15px;
 }
+
+.todo-compbutton{
+  background-color: #f1f1f1;
+  border-radius: 15px;
+}
+
+.checkbox{
+  width: 20px;
+  height: 20px;
+  accent-color: #007acc; /* チェック時の色を青に */
+  cursor: pointer;
+  margin-right: 8px;
+  background: #fff;
+  border: 2px solid #e0e0e0; /* グレー枠 */
+  border-radius: 4px;
+  appearance: none;
+  position: relative;
+}
+
+/* チェック時の見た目 */
+.checkbox:checked {
+  background: #add6f3;
+  border: 2px solid #b9c5ce;
+}
+
+/* チェックマークを描画 */
+.checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: block;
+}
+
+

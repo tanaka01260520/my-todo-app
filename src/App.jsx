@@ -13,8 +13,6 @@ const App = () => {
   const [viewState, setViewState] = useState("incomplete");
   const [todoTitle, setTodoTitle] = useState("");
   const [todoDetail, setTodoDetail] = useState("");
-  // const [lastTodoTitle, setLastTodoTitle] = useState("");
-  // const [lastTodoDetail, setLastTodoDetail] = useState("");
   const [incompleteTodos, setIncompleteTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -51,8 +49,6 @@ const App = () => {
     }
     const newTodos = [...incompleteTodos, { id: Date.now(),title: todoTitle, detail: todoDetail,todoDeadline: todoDeadline}];
     setIncompleteTodos(newTodos);
-    // setLastTodoTitle(todoTitle);
-    // setLastTodoDetail(todoDetail);
     setTodoTitle("");
     setTodoDetail("");
     setViewState("incomplete");
@@ -134,6 +130,7 @@ const App = () => {
       onChangeSearchText={onChangeSearchText}
       onClickHeader={() => setViewState("incomplete")}
       viewState={viewState}
+      reactLogo={reactLogo}
     />
     
       {viewState === "add" ? (
