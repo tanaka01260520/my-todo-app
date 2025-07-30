@@ -76,6 +76,7 @@ body {
 .add-todo-button{
     border-radius: 25px;
     padding: 8px 16px;
+    background-color: #f1f1f1;
 }
 
 .todo-area{
@@ -92,10 +93,6 @@ body {
    border-bottom: 2px solid rgb(231, 226, 226);
    align-items: flex-end;
    
-}
-
-.add-todo-button{
-  background-color: #f1f1f1;;
 }
 
 .tab-item {
@@ -142,6 +139,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 0px;
 }
 
 .todo-left {
@@ -268,8 +266,13 @@ body {
    transition: background 0.2s;
 }
 
+.addshowform-button:hover{
+   color: #e0f8ff;
+
+}
+
 .delete-button:hover {
-   color: #007acc; /* ホバー時の色を赤に変更 */
+   color: #007acc; 
 }
 
 .todo-editbutton{

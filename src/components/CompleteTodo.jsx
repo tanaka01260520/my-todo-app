@@ -20,7 +20,7 @@ export const CompletedTodo = (props) => {
                 </div>  
                 </div>
                 <div>
-                <button className='delete-button' onClick={() => onClickDelete(todo.id)}>🗑</button>
+                <button className='delete-button' onClick={() => onClickDelete(todo.id)}><i class="fa-solid fa-trash-can"></i></button>
                 </div>  
             </div>
             );
